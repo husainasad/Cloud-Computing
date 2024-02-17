@@ -1,5 +1,4 @@
 import boto3
-import base64
 
 ec2 = boto3.resource(
     'ec2',
@@ -9,9 +8,12 @@ ec2 = boto3.resource(
 # response = ec2.describe_instances()
 # print(response)
 
-ami_id = "ami-00ddb0e5626798373"
+ami_id = "ami-0c7217cdde317cfec"
 key_name = "DevCSE546"
 security_group_ids = ["sg-0ef331f308211b7ec"]
+
+with open("cc-startup-script.txt","r") as file:
+    user_data = file.read()
 
 instance = ec2.create_instances(
     ImageId=ami_id,
@@ -20,10 +22,11 @@ instance = ec2.create_instances(
     InstanceType="t2.micro",
     KeyName=key_name,
     SecurityGroupIds=security_group_ids,
+    UserData=user_data,
     TagSpecifications=[{'ResourceType':'instance',
                         'Tags': [{
                             'Key': 'Name',
-                            'Value': 'test-server' }]}]
+                            'Value': 'web-instance' }]}]
 )
 
 instance[0].wait_until_running()

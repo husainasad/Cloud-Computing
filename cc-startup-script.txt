@@ -1,0 +1,33 @@
+#!/bin/bash
+sudo -u ubuntu -i <<'EOF'
+sudo apt-get update -y
+sudo apt install python3.10-venv -y
+python3 -m venv ccprojectenv
+source ccprojectenv/bin/activate
+sudo apt-get update -y
+git clone -q https://github.com/husainasad/Cloud-Computing.git
+pip install --upgrade pip
+pip install --upgrade setuptools
+pip install "fastapi[all]"
+pip install pandas python-multipart
+
+echo "[Unit]
+Description=My Uvicorn server
+After=multi-user.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+ExecStart=/home/ubuntu/ccprojectenv/bin/python -m uvicorn app:app --host 0.0.0.0 --port 8000
+WorkingDirectory=/home/ubuntu/Cloud-Computing
+User=ubuntu
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target" | sudo tee /etc/systemd/system/uvicorn-server.service
+
+sudo chmod 644 /etc/systemd/system/uvicorn-server.service
+sudo systemctl start uvicorn-server
+sudo systemctl enable uvicorn-server
+EOF
