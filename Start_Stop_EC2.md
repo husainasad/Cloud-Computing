@@ -79,7 +79,7 @@ def lambda_handler(event, context):
 
 Once the lambda function is created, deploy the function and test it.
 
-## Create EventBridge Rule
+## Step 4: Create EventBridge Rule
 Create EventBridge rule and use cron expression to define the funtion trigger schedule. </br>
 Choose the lambda function target to be scheduled. <br>
 All done
