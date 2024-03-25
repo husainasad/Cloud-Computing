@@ -1,4 +1,6 @@
-This repository contains steps and key notes to develop and deploy a simple Fast API application on an EC2 instance
+This repository contains steps and key notes to develop and deploy a simple Fast API application on an EC2 instance<br>
+The architecture of the application is as follows:<br>
+![CC-Project1-Part1-Architecture](https://github.com/husainasad/Cloud-Computing-1-1/assets/32503674/ab43e9ce-1b40-4081-93dd-8d457e2b3af6)
 
 ## Step 1: Create Fast API application
 Fast API is supported on python 3.8+ versions </br>
